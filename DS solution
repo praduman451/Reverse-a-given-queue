@@ -1,0 +1,60 @@
+#include <stdio.h>
+#define SIZE 100
+
+int front=-1, rear=-1;
+int array[SIZE];
+
+void enqueue(int item)
+{
+  if (rear == SIZE)                 // Queue is full
+    return;
+  if(front == -1 && rear == -1){
+    front++;
+    rear++;
+  }
+  else
+    rear++;
+  array[rear] = item;
+}
+
+int dequeue()
+{
+  if (front > rear)
+  {
+    return -1;
+  }
+  int item = array[front];
+  front++;
+  return item;
+}
+void reverseQueue(int q[])
+{
+  int i ;
+  if (rear!=front)
+  {
+     i = dequeue(q);
+     reverseQueue(q);
+     enqueue(i);
+  }
+}
+int main()
+{
+  int n, q1, q2, q11;
+  scanf("%d", &n);
+  while(n--)
+  {
+    front = rear = -1;
+    scanf("%d", &q1);
+    q11 = q1;
+    while(q1--)
+    {
+      scanf("%d", &q2);
+      enqueue(q2);
+    }
+    reverseQueue(array);
+    while(q11--)
+      printf("%d ", dequeue());
+    printf("\n");
+  }
+  return 0;
+}
